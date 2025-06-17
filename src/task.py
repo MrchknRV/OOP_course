@@ -5,7 +5,7 @@ class Product:
         """Инициализирует новый экземпляр класса Product"""
         self.name = name
         self.description = description
-        self._price = price
+        self.__price = price
         self.quantity = quantity
 
         # self.product_list.append(
@@ -47,7 +47,7 @@ class Product:
     @property
     def price(self):
         """Возвращает цену товара"""
-        return self._price
+        return self.__price
 
     @price.setter
     def price(self, new_price):
@@ -58,12 +58,12 @@ class Product:
             user_input = input("Подтвердите понижение цены (да/нет)\n> ").lower().strip()
             if user_input != "да":
                 pass
-            elif user_input == "да" and self._price + new_price > 0:
-                self._price += new_price
+            elif user_input == "да" and self.__price + new_price > 0:
+                self.__price += new_price
             else:
                 print("Цена не должна быть нулевая или отрицательная")
         else:
-            self._price += new_price
+            self.__price += new_price
 
 
 class Category:
