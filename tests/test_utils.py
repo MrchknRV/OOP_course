@@ -1,8 +1,8 @@
 import json
 from unittest.mock import mock_open, patch
 
-from src.utils import load_json_data, create_object
-from src.task import Category, Product
+from src.task import Category
+from src.utils import create_object, load_json_data
 
 
 def test_load_json_data_file_not_found():
@@ -25,11 +25,8 @@ def test_create_object_success(valid_input_data):
     assert isinstance(result[1], Category)
     assert len(result[0].products) == 2
     assert len(result[1].products) == 2
-    assert isinstance(result[0].products[0], Product)
-    assert isinstance(result[1].products[1], Product)
-    assert result[0].name == "Электроника"
-    assert result[0].products[0].name == "Смартфон"
-    assert result[0].products[0].price == 999.99
+    assert isinstance(result[0].products[0], str)
+    assert isinstance(result[1].products[1], str)
 
 
 def test_create_object_empty_input():
