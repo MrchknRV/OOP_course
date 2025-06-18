@@ -1,7 +1,7 @@
 import json
 
 from config import BASIC_PATH_JSON
-from src.task import Product, Category
+from src.task import Category, Product
 
 
 def load_json_data(path: str) -> list:
@@ -31,4 +31,3 @@ if __name__ == "__main__":
     print(data)
     res = create_object(data)
     print(res)
-
