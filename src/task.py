@@ -8,15 +8,6 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
-        # self.product_list.append(
-        #     {
-        #         "name": self.name,
-        #         "description": self.description,
-        #         "price": self.price,
-        #         "quantity": self.quantity
-        #     }
-        # )
-
     @classmethod
     def new_product(cls, products, products_list=None):
         """Создает новый товар или обновляет существующий"""
@@ -65,6 +56,16 @@ class Product:
         else:
             self.__price += new_price
 
+    def __str__(self):
+        """Функция возвращает строковое представление продукта."""
+        return f"{self.name.title()}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        """Функция складывает общую стоимость двух продуктов."""
+        if isinstance(other, Product):
+            return self.price * self.quantity + other.price * other.quantity
+        return NotImplemented
+
 
 class Category:
     """Класс представляющий категорию товаров"""
@@ -82,12 +83,18 @@ class Category:
         self.product_count += len(self.__products) if self.__products else 0
 
     def add_product(self, product):
+        """Функция добавляет продукт в список продуктов и увеличивает счетчик."""
         self.__products.append(product)
         self.product_count += 1
 
+    def __str__(self):
+        """Функция возвращает строковое представление продукта."""
+        return f"{self.name}, количество продуктов: {len(self.__products)} шт."
+
     @property
     def products(self):
+        """Функция возвращает список строковых представлений всех продуктов."""
         products = []
         for product in self.__products:
-            products.append(f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.")
+            products.append(str(product))
         return products
