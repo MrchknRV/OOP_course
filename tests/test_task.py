@@ -1,5 +1,7 @@
 from unittest.mock import patch
 
+import pytest
+
 from src.task import Product
 
 
@@ -84,3 +86,24 @@ def test_add_product_in_category(sample_category):
 def test_category_products(sample_category):
     assert len(sample_category.products) == 2
     assert sample_category.products[0] == "Samsung Galaxy C23 Ultra, 180000.0 руб. Остаток: 6 шт."
+
+
+def test_str_product(sample_product_1):
+    res = str(sample_product_1)
+    assert res == "Samsung Galaxy C23 Ultra, 180000.0 руб. Остаток: 6 шт."
+
+
+def test_add_product_success(sample_product_1, sample_product_2):
+    res = sample_product_1 + sample_product_2
+    assert res == 2760000.0
+
+
+def test_add_product_invalid(sample_product_1):
+    with pytest.raises(TypeError):
+        res = sample_product_1 + 100000
+        assert res == NotImplemented
+
+
+def test_str_category(sample_category):
+    res = str(sample_category)
+    assert res == "Смартфоны, количество продуктов: 2 шт."
