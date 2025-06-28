@@ -63,7 +63,9 @@ class Product:
     def __add__(self, other):
         """Функция складывает общую стоимость двух продуктов."""
         if isinstance(other, Product):
-            return self.price * self.quantity + other.price * other.quantity
+            if type(self) is type(other):
+                return self.price * self.quantity + other.price * other.quantity
+            raise TypeError("Возникла ошибка при попытке сложения")
         return NotImplemented
 
 
@@ -73,19 +75,30 @@ class Category:
     product_count = 0
     category_count = 0
 
-    def __init__(self, name, description, products):
+    def __init__(self, name, description, products=[]):
         """Инициализирует новый экземпляр класса Category"""
         self.name = name
         self.description = description
         self.__products = products
 
-        self.category_count += 1
-        self.product_count += len(self.__products) if self.__products else 0
+        Category.category_count += 1
+        Category.product_count += len(self.__products) if self.__products else 0
 
     def add_product(self, product):
         """Функция добавляет продукт в список продуктов и увеличивает счетчик."""
-        self.__products.append(product)
-        self.product_count += 1
+        if isinstance(product, Product):
+            if len(self.__products) != 0:
+                if type(self.__products[0]) is type(product):
+                    self.__products.append(product)
+                    self.product_count += 1
+                else:
+                    raise TypeError("Неверный тип продукта для данной категории")
+            else:
+                self.__products.append(product)
+                self.product_count += 1
+
+        else:
+            raise TypeError("Недопустимый тип продукта")
 
     def __str__(self):
         """Функция возвращает строковое представление продукта."""
