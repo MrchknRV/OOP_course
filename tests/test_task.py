@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
-from src.task import Product
+from src.task import Product, Category
 
 
 def test_init_category(sample_category):
