@@ -107,18 +107,3 @@ def test_add_product_invalid(sample_product_1):
 def test_str_category(sample_category):
     res = str(sample_category)
     assert res == "Смартфоны, количество продуктов: 2 шт."
-
-
-def test_quantity_empty():
-    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
-        Product("Бракованный товар", "Неверное количество", 1000.0, 0)
-
-
-def test_avg_price_in_category_valid(sample_category):
-    res = sample_category.average_price()
-    assert res == 1380000
-
-
-def test_avg_price_in_category_invalid():
-    category_empty = Category("Пустая категория", "Категория без продуктов", [])
-    assert category_empty.average_price() == 0
